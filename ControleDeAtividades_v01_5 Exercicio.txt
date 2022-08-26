@@ -1,0 +1,16 @@
+Exercício
+Swing: Criação de componentes de tela (Menus e Tabelas)
+
+1. Para que as atividades sejam exibidas normalmente, faça com que a classe  AtividadeTableModel implemente a interface TableModel
+
+2. No método montaPainelTabela da classe PainelBuscaAtividades:
+2.1. Inicialize o model com um objeto do tipo AtividadeTableModel
+2.2. Observe a configuração do model da JTabel no seu construtor
+
+3. Na classe TelaControleAtividades, no método montaMenu, crei o menu da tela com os seguintes componentes:
+3.1. Crie a barra de menu (JMenuBar)
+3.2. Crie os menus (JMenu) de Cadastro e Ajuda
+3.3. Crie os itens de menu (JMenuItem) Novo e Sobre
+3.4. Adicione o item Sobre no menu Ajuda
+3.5. Adicione os menus de Cadastro e Ajuda na barra de menu
+
