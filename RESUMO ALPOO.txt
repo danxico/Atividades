@@ -1,0 +1,176 @@
+
+AWT E SWING 
+SOBRE:
+
+são os kits de ferramentas para tornar possivel a criaçao de ambientes graficos no java (janela do windows por exemplo). esses ambientes são chamados de GUI.
+
+O AWT é uma API (conjunto de classes prontas) desenvolvida internamenete no java e sua função é garantir suporte a criação de GUIs. é mais rápido.
+
+o SWING veio depois para oferecer portabilidade e diversas opções de controle para serem adicionadas a janela. ele perde um pouco do desempenho/performance porém é muito mais poderoso que o ATW.
+
+
+TABLE MODEL
+package br.unip.sicc.view;
+
+import br.unip.sicc.model.AtividadeComplementar;
+import br.unip.sicc.model.Situacao;
+import br.unip.sicc.model.TipoAtividade;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.List;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
+
+public class AtividadeTableModel implements TableModel{
+    
+    private List<AtividadeComplementar> atividades;
+
+    public AtividadeTableModel(List<AtividadeComplementar> atividades) {
+        this.atividades = atividades;
+    }
+
+    @Override
+    public int getRowCount() {
+        return atividades.size();
+    }
+
+    @Override
+    public int getColumnCount() {
+        return 6;
+    }
+
+    @Override
+    public String getColumnName(int coluna) {
+        switch(coluna){
+            case 0: return "Id";
+            case 1: return "Titulo";
+            case 2: return "Tipo";
+            case 3: return "Data";
+            case 4: return "Horas";
+            case 5: return "Situação";
+        }
+        return "";
+    }
+
+    @Override
+    public Class<?> getColumnClass(int coluna) {
+        switch(coluna){
+            case 0: return Integer.class;
+            case 1: return String.class;
+            case 2: return TipoAtividade.class;
+            case 3: return String.class;
+            case 4: return int.class;
+            case 5: return Situacao.class;
+        }
+        return void.class;
+    }
+
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return false;
+    }
+
+    @Override
+    public Object getValueAt(int linha, int coluna) {
+        AtividadeComplementar atividadeAtual = atividades.get(linha);
+        switch(coluna){
+            case 0: return atividadeAtual.getId();
+            case 1: return atividadeAtual.getTitulo();
+            case 2: return atividadeAtual.getTipo();
+            case 3: Date data = atividadeAtual.getDataRealizacao();
+                    return DateFormat.getDateInstance().format(data);
+            case 4: return atividadeAtual.getQtdeHoras();
+            case 5: return atividadeAtual.getSituacao();
+        }
+        return null;
+    }
+
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+    }
+
+    @Override
+    public void addTableModelListener(TableModelListener l) {
+    }
+
+    @Override
+    public void removeTableModelListener(TableModelListener l) {
+    }
+    
+    AtividadeComplementar getAtividade(int linha){
+        return atividades.get(linha);
+    }
+
+    void setAtividades(List<AtividadeComplementar> atividades) {
+        this.atividades = atividades;
+    }
+    
+}
+
+Existe uma classe em Java que será a responsável pelo tratamento de eventos.
+Ou seja, é nela que vamos identificar o evento que ocorreu e é nela que vamos definir que ações nossos aplicativos devem executar quando tal evento ocorrer.
+
+A classe ActionListener é uma interface, ou seja, é classe composta apenas de métodos abstratos
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
+Button (java.awt.Button)
+To create a Button object, simply create an instance of the Button class by calling one of the constructors. The most commonly used constructor of the Button class takes a String argument, that gives the Button object a text title. The two constructors are:
+
+checkboxes (java.awt.Checkbox)
+Checkboxes ave two states, on and off. The state of the button is returned as the Object argument, when a Checkbox event occurs. To find out the state of a checkbox object we can use getState() that returns a true or false value. We can also get the label of the checkbox using getLabel() that returns a String object.
+
+Radio Buttons (java.awt.CheckboxGroup)
+Is a group of checkboxes, where only one of the items in the group can be selected at any one time.
+
+Choice Buttons (java.awt.Choice)
+Like a radio button, where we make a selection, however it requires less space and allows us to add items to the menu dynamically using the addItem() method.
+
+TextFields (java.awt.TextField)
+Are areas where the user can enter text. They are useful for displaying and receiving text messages. We can make this textfield read-only or editable. We can use the setEditable(false) to set a textfield read-only. There are numerous ways that we can construct a Textfield object:
+
+
+SINGLETON 
+
+O Singleton pode ser uma solução viável caso esteja em uma situação em que se apresente esses dois problemas:
+
+Você precisa de apenas uma instância de um “objeto X”;
+Você precisa acessar essa instância de qualquer lugar da sua aplicação.
+Caso um dos dois itens acima não fizerem parte das suas necessidades, provavelmente há outra saída para o seu problema.
+
+Se você não necessitar de uma única instância, o construtor de seu objeto não precisa ser privado. Basta instanciar seu objeto onde quer que você precise utilizá-lo;
+Se não é preciso acessar sua instância de qualquer lugar, significa que você possui um escopo limitado. Neste caso, uma alternativa seria identificar “a partir de onde” é necessário acessar seu objeto.
+
+
+BENEFICIOS DO SINGLETON
+
+É extremamente fácil de acessar: servindo como uma variável “de escopo global”, fica evidente que seu acesso é excepcionalmente simples.
+
+CUSTOS DO SINGLETONS
+
+- fator falta de rastreabilidade
+- dificulta na implementação de testes
+- sacrifica transparencia
+
+JFRAME X JPANEL
+
+JFrame representa a janela do programa com barra de título, ícone, botões de comando, etc. Entre os principais métodos temos o pack() que compacta a janela para o tamanho dos componentes, setSize(int, int) que define a largura e altura da janela, setLocation(int, int) que define a posição da janela na tela (x,y), setBounds(int, int, int, int) que define posição e tamanho
+
+JPanel representa um tipo básico de container para inserção de componentes. Entre os principais métodos temos add(Component, int) que adiciona o componente definindo sua posição e setLayout(LayoutManagaer) que altera o tipo de layout.
+
+GERENCIADORES DE LAYOUT
+
+São classes cujos objetos podem ser atribuídos a painéis e que descrevem como os componentes adicionados ao painel serão apresentados na tela. Cada Layout tem uma característica sendo que o mais flexível e poderoso (e que tem mais detalhes para configurar) é o GridBagLayout.
+Uma pequena lista de Layouts:
+
+- FlowLayout - se você não especificar nenhum Layout, o seu painel Swing assume esse. Ele cria um "fluxo" de componentes, ou seja, vai colocando eles um do lado do outro e pulando linhas. Note que isso é diferente de forçar explicitamente setLayout(null) em um component como Jpanel ou JFrame, que é a forma de indicar que não vamos usar layouts.
+- BorderLayout - cria uma visão de áreas centro, sul, norte, leste e oeste onde você pode colocar componentes.
+- MiGLayout - esse layout não é original da biblioteca do Java, é um projeto open source e gratuito que permite descrever o layout conforme os componentes vão sendo adicionados.
+
+
+
+
+
+
